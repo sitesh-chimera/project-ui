@@ -7,9 +7,9 @@ import DeviceService from "../service/DeviceService";
 import { endTime, startTime } from "../config/api-config";
 import { useHistory } from "react-router-dom";
 
-const CheckIn = (props) => {
+const CheckOut = (props) => {
   const history = useHistory();
-  const { showCheckIn, deviceDetails, handleClose } = props;
+  const { showCheckOut, deviceDetails, handleClose, allDevices } = props;
   const [lastCheckOutBy, setlastCheckOutBy] = useState();
   const checkCheckoutTime = (e) => {
     let currentDate = new Date();
@@ -33,21 +33,30 @@ const CheckIn = (props) => {
 
   const saveCheckOut = async (e) => {
     e.preventDefault();
-    if (checkCheckoutTime()) {
-      const response = await DeviceService.checkOutDevice(
-        deviceDetails._id,
-        lastCheckOutBy
-      );
-      if (response) {
-        history.push("/dashboard");
-      }
+    const isExist = allDevices.filter(
+      (device) => device.lastCheckedOutBy == lastCheckOutBy
+    );
+    if (isExist) {
+      alert("name already exist");
     } else {
-      alert("check out can performed between 9:00 AM to 17:00 AM");
+      if (checkCheckoutTime()) {
+        const response = await DeviceService.checkOutDevice(
+          deviceDetails._id,
+          lastCheckOutBy
+        );
+        if (response) {
+          history.push("/dashboard");
+        } else {
+          alert("checkout is done with the same name try another");
+        }
+      } else {
+        alert("check out can performed between 9:00 AM to 17:00 AM");
+      }
     }
   };
 
   return (
-    <Modal show={showCheckIn} onHide={handleClose} animation={false}>
+    <Modal show={showCheckOut} onHide={handleClose} animation={false}>
       <Badge variant="danger">
         check out can performed between 9:00 AM to 17:00 AM
       </Badge>{" "}
@@ -82,4 +91,4 @@ const CheckIn = (props) => {
   );
 };
 
-export default CheckIn;
+export default CheckOut;

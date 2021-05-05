@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.device-table .device-table-header .device-table-tr {
+  background-color: #ff8d00;
+} 
+  
+

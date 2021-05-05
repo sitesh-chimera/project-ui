@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import Badge from "react-bootstrap/Badge";
+import moment from "moment";
 import DeviceService from "../service/DeviceService";
-import CheckIn from "./CheckIn";
+import CheckIn from "./CheckOut";
 
 const ListDevice = (props) => {
   const { data, onDone } = props;
-  const [showCheckIn, setShowCheckInModal] = useState(false);
+  const [showCheckOut, setshowCheckOutModal] = useState(false);
   const [deviceDetails, setDeviceDetails] = useState({});
+  const [lastWeekData, setlastWeeKData] = useState([]);
 
   const deleteDevice = (deviceId) => {
     try {
@@ -21,16 +24,37 @@ const ListDevice = (props) => {
     }
   };
 
-  const handleClose = () => setShowCheckInModal(false);
+  const getWeekDate = () => {
+    var weekDate = moment().subtract(8, "days").format("YYYY/MM/DD");
+    setlastWeeKData(weekDate);
+  };
 
-  const CheckInDevice = (deviceDetails) => {
+  useEffect(() => {
+    getWeekDate();
+  }, []);
+
+  const handleClose = () => setshowCheckOutModal(false);
+
+  const CheckOutDevice = (deviceDetails) => {
     setDeviceDetails(deviceDetails);
-    setShowCheckInModal(true);
+    setshowCheckOutModal(true);
+  };
+
+  const checkoutMoreThanWeek = (device) => {
+    if (moment(device.lastCheckedOutDate).format("YYYY/MM/DD") < lastWeekData) {
+      return "device-table-tr";
+    } else {
+      return 0;
+    }
   };
 
   return (
     <>
-      <Table striped bordered hover>
+      <p>
+        <span style={{ color: "#ff8d00" }}>*</span> Indicate if a device has
+        been checked out for more than a week or older than {lastWeekData}
+      </p>
+      <Table striped bordered hover className="device-table">
         <thead>
           <tr>
             <th>Device</th>
@@ -42,9 +66,9 @@ const ListDevice = (props) => {
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="device-table-header">
           {data.map((device, index) => (
-            <tr key={device._id}>
+            <tr key={device._id} className={checkoutMoreThanWeek(device)}>
               <td>{device.device}</td>
               <td>{device.os}</td>
               <td>{device.manufacturer}</td>
@@ -58,7 +82,13 @@ const ListDevice = (props) => {
                   ? device.lastCheckedOutBy
                   : "Not Availble"}
               </td>
-              <td>{device.isCheckedOut ? "Yes" : "No"}</td>
+              <td>
+                {device.isCheckedOut ? (
+                  <Badge variant="success">Yes</Badge>
+                ) : (
+                  <Badge variant="warning">No</Badge>
+                )}
+              </td>
               <td>
                 <Button
                   style={{ marginRight: "16px" }}
@@ -68,8 +98,8 @@ const ListDevice = (props) => {
                 >
                   Remove
                 </Button>
-                <Button variant="danger" onClick={() => CheckInDevice(device)}>
-                  Check In
+                <Button variant="danger" onClick={() => CheckOutDevice(device)}>
+                  Check Out
                 </Button>
               </td>
             </tr>
@@ -77,9 +107,10 @@ const ListDevice = (props) => {
         </tbody>
       </Table>
       <CheckIn
-        showCheckIn={showCheckIn}
+        showCheckOut={showCheckOut}
         deviceDetails={deviceDetails}
         handleClose={handleClose}
+        allDevices={data}
       />
     </>
   );

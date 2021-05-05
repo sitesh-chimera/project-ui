@@ -8,13 +8,21 @@ import ListDevice from "./ListDevice";
 const Dashboard = () => {
   const [devices, setDevice] = useState([]);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const [show, setShow] = useState(false);
 
   const loadDevice = async () => {
     const response = await DeviceService.getAllDevice();
     if (response) {
       setDevice(response);
+    }
+  };
+
+  const handleShow = () => {
+    console.log(devices.length);
+    if (devices.length >= 10) {
+      alert("max 10 entry allowed");
+    } else {
+      setShow(true);
     }
   };
 
