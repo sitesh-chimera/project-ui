@@ -1,8 +1,22 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
+import DeviceService from "../service/DeviceService";
 
 const ListDevice = (props) => {
-  const { data } = props;
+  const { data, onDone } = props;
+
+  const deleteDevice = (deviceId) => {
+    try {
+      DeviceService.removeDevice(deviceId).then((response) => {
+        if (response) {
+          onDone();
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <Table striped bordered hover>
@@ -14,10 +28,11 @@ const ListDevice = (props) => {
             <th>lastCheckedOutDate</th>
             <th>lastCheckedOutBy</th>
             <th>isCheckedOut</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((device) => (
+          {data.map((device, index) => (
             <tr key={device._id}>
               <td>{device.device}</td>
               <td>{device.os}</td>
@@ -33,6 +48,16 @@ const ListDevice = (props) => {
                   : "Not Availble"}
               </td>
               <td>{device.isCheckedOut ? "Yes" : "No"}</td>
+              <td>
+                <Button
+                  style={{ marginRight: "16px" }}
+                  variant="danger"
+                  className={`delete-device_button-${index}`}
+                  onClick={() => deleteDevice(device._id)}
+                >
+                  Remove
+                </Button>
+              </td>
             </tr>
           ))}
         </tbody>

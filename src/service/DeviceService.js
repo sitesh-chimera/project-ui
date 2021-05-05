@@ -18,6 +18,14 @@ class DeviceService {
       console.log(error);
     }
   }
+  static async removeDevice(deviceId) {
+    try {
+      const respone = await axios.delete(`${API_URL}/api/devices/${deviceId}`);
+      return respone;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default DeviceService;

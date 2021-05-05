@@ -37,7 +37,7 @@ const Dashboard = () => {
         >
           Add device
         </Button>
-        <ListDevice data={devices} />
+        <ListDevice data={devices} onDone={resetDevice} />
         <DeviceModalDialog
           show={show}
           handleClose={handleClose}
