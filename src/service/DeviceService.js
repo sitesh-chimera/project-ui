@@ -26,6 +26,20 @@ class DeviceService {
       console.log(error);
     }
   }
+  static async checkOutDevice(deviceId, lastCheckOutBy) {
+    const data = {
+      lastCheckOutBy: lastCheckOutBy,
+    };
+    try {
+      const respone = await axios.put(
+        `${API_URL}/api/devices/${deviceId}`,
+        data
+      );
+      return respone;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default DeviceService;

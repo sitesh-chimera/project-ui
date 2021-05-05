@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import DeviceService from "../service/DeviceService";
+import CheckIn from "./CheckIn";
 
 const ListDevice = (props) => {
   const { data, onDone } = props;
+  const [showCheckIn, setShowCheckInModal] = useState(false);
+  const [deviceDetails, setDeviceDetails] = useState({});
 
   const deleteDevice = (deviceId) => {
     try {
@@ -17,6 +20,14 @@ const ListDevice = (props) => {
       console.log(error);
     }
   };
+
+  const handleClose = () => setShowCheckInModal(false);
+
+  const CheckInDevice = (deviceDetails) => {
+    setDeviceDetails(deviceDetails);
+    setShowCheckInModal(true);
+  };
+
   return (
     <>
       <Table striped bordered hover>
@@ -57,11 +68,19 @@ const ListDevice = (props) => {
                 >
                   Remove
                 </Button>
+                <Button variant="danger" onClick={() => CheckInDevice(device)}>
+                  Check In
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
+      <CheckIn
+        showCheckIn={showCheckIn}
+        deviceDetails={deviceDetails}
+        handleClose={handleClose}
+      />
     </>
   );
 };
