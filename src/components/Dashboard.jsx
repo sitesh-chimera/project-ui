@@ -18,7 +18,6 @@ const Dashboard = () => {
   };
 
   const handleShow = () => {
-    console.log(devices.length);
     if (devices.length >= 10) {
       alert("max 10 entry allowed");
     } else {

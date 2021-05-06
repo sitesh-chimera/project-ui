@@ -33,25 +33,21 @@ const CheckOut = (props) => {
 
   const saveCheckOut = async (e) => {
     e.preventDefault();
-    const isExist = allDevices.filter(
-      (device) => device.lastCheckedOutBy == lastCheckOutBy
-    );
-    if (isExist) {
-      alert("name already exist");
-    } else {
-      if (checkCheckoutTime()) {
-        const response = await DeviceService.checkOutDevice(
-          deviceDetails._id,
-          lastCheckOutBy
-        );
-        if (response) {
-          history.push("/dashboard");
-        } else {
-          alert("checkout is done with the same name try another");
-        }
+
+    if (checkCheckoutTime()) {
+      const response = await DeviceService.checkOutDevice(
+        deviceDetails._id,
+        lastCheckOutBy
+      );
+      console.log(response);
+      if (response) {
+        // history.push("/dashboard");
+        window.location.reload();
       } else {
-        alert("check out can performed between 9:00 AM to 17:00 AM");
+        alert("checkout is done with the same name try another");
       }
+    } else {
+      alert("check out can performed between 9:00 AM to 17:00 AM");
     }
   };
 

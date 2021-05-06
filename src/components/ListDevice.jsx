@@ -51,8 +51,8 @@ const ListDevice = (props) => {
   return (
     <>
       <p>
-        <span style={{ color: "#ff8d00" }}>*</span> Indicate if a device has
-        been checked out for more than a week or older than {lastWeekData}
+        colored row has been checked out for more than a week or older than{" "}
+        {lastWeekData}
       </p>
       <Table striped bordered hover className="device-table">
         <thead>
