@@ -41,6 +41,7 @@ const DeviceModalDialog = (props) => {
               <Form.Label>Device Name</Form.Label>
               <Form.Control
                 type="text"
+                required
                 placeholder="Enter device name"
                 onChange={(e) => onInputChange(e.target.value, "device")}
               />
@@ -50,6 +51,7 @@ const DeviceModalDialog = (props) => {
               <Form.Label>Operating System</Form.Label>
               <Form.Control
                 type="text"
+                required
                 placeholder="Operating System	"
                 onChange={(e) => onInputChange(e.target.value, "os")}
               />
@@ -57,6 +59,7 @@ const DeviceModalDialog = (props) => {
             <Form.Group controlId="formBasicManufacturer">
               <Form.Label>Manufacturer</Form.Label>
               <Form.Control
+                required
                 type="text"
                 placeholder="Manufacturer"
                 onChange={(e) => onInputChange(e.target.value, "manufacturer")}

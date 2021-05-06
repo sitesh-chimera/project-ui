@@ -5,11 +5,9 @@ import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import DeviceService from "../service/DeviceService";
 import { endTime, startTime } from "../config/api-config";
-import { useHistory } from "react-router-dom";
 
 const CheckOut = (props) => {
-  const history = useHistory();
-  const { showCheckOut, deviceDetails, handleClose, allDevices } = props;
+  const { showCheckOut, deviceDetails, handleClose } = props;
   const [lastCheckOutBy, setlastCheckOutBy] = useState();
   const checkCheckoutTime = (e) => {
     let currentDate = new Date();
@@ -41,7 +39,6 @@ const CheckOut = (props) => {
       );
       console.log(response);
       if (response) {
-        // history.push("/dashboard");
         window.location.reload();
       } else {
         alert("checkout is done with the same name try another");
@@ -57,7 +54,7 @@ const CheckOut = (props) => {
         check out can performed between 9:00 AM to 17:00 AM
       </Badge>{" "}
       <Modal.Header closeButton>
-        <Modal.Title>{/* <p>{deviceDetails.device}</p> */}</Modal.Title>
+        <Modal.Title>check out form</Modal.Title>
       </Modal.Header>
       <Form onSubmit={saveCheckOut}>
         <Modal.Body>
@@ -65,6 +62,7 @@ const CheckOut = (props) => {
             <Form.Label>Check Out By</Form.Label>
             <Form.Control
               type="text"
+              required
               onChange={(e) => checkOutByName(e.target.value)}
               placeholder="Check out user name"
             />

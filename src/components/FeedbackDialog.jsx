@@ -45,6 +45,7 @@ const FeedbackDialog = (props) => {
               <Form.Label>Feedback Form</Form.Label>
               <Form.Control
                 type="text"
+                required
                 onChange={(e) => onFeedBackChange(e.target.value)}
                 placeholder="Enter feedback"
               />
