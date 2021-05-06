@@ -5,10 +5,12 @@ import Badge from "react-bootstrap/Badge";
 import moment from "moment";
 import DeviceService from "../service/DeviceService";
 import CheckIn from "./CheckOut";
+import FeedbackDialog from "./FeedbackDialog";
 
 const ListDevice = (props) => {
   const { data, onDone } = props;
   const [showCheckOut, setshowCheckOutModal] = useState(false);
+  const [feedbackDialog, setFeedbackDialog] = useState(false);
   const [deviceDetails, setDeviceDetails] = useState({});
   const [lastWeekData, setlastWeeKData] = useState([]);
 
@@ -34,10 +36,15 @@ const ListDevice = (props) => {
   }, []);
 
   const handleClose = () => setshowCheckOutModal(false);
-
+  const handleCloseFeedback = () => setFeedbackDialog(false);
   const CheckOutDevice = (deviceDetails) => {
     setDeviceDetails(deviceDetails);
     setshowCheckOutModal(true);
+  };
+
+  const addFeedback = (deviceDetails) => {
+    setDeviceDetails(deviceDetails);
+    setFeedbackDialog(true);
   };
 
   const checkoutMoreThanWeek = (device) => {
@@ -50,7 +57,7 @@ const ListDevice = (props) => {
 
   return (
     <>
-      <p>
+      <p className="ml-5">
         colored row has been checked out for more than a week or older than{" "}
         {lastWeekData}
       </p>
@@ -91,15 +98,25 @@ const ListDevice = (props) => {
               </td>
               <td>
                 <Button
-                  style={{ marginRight: "16px" }}
-                  variant="danger"
-                  className={`delete-device_button-${index}`}
+                  variant="link"
+                  className={`delete-device_button-${index} ml-3`}
                   onClick={() => deleteDevice(device._id)}
                 >
                   Remove
                 </Button>
-                <Button variant="danger" onClick={() => CheckOutDevice(device)}>
+                <Button
+                  className="ml-3"
+                  variant="link"
+                  onClick={() => CheckOutDevice(device)}
+                >
                   Check Out
+                </Button>
+                <Button
+                  className="ml-3"
+                  variant="link"
+                  onClick={() => addFeedback(device)}
+                >
+                  Add Feedback
                 </Button>
               </td>
             </tr>
@@ -111,6 +128,11 @@ const ListDevice = (props) => {
         deviceDetails={deviceDetails}
         handleClose={handleClose}
         allDevices={data}
+      />
+      <FeedbackDialog
+        show={feedbackDialog}
+        deviceDetails={deviceDetails}
+        handleClose={handleCloseFeedback}
       />
     </>
   );
