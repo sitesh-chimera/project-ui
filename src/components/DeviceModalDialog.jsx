@@ -32,7 +32,7 @@ const DeviceModalDialog = (props) => {
   return (
     <>
       <Modal show={show} onHide={handleClose} animation={false}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Add Device</Modal.Title>
         </Modal.Header>
         <Form onSubmit={saveDevice}>
@@ -68,14 +68,14 @@ const DeviceModalDialog = (props) => {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              Close
+              Cancel
             </Button>
             <Button
               type="submit"
               className="save-device_button"
               variant="primary"
             >
-              Save Changes
+              Add
             </Button>
           </Modal.Footer>
         </Form>

@@ -53,7 +53,7 @@ const CheckOut = (props) => {
       <Badge variant="danger">
         check out can performed between 9:00 AM to 17:00 AM
       </Badge>{" "}
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title>check out form</Modal.Title>
       </Modal.Header>
       <Form onSubmit={saveCheckOut}>
@@ -70,14 +70,14 @@ const CheckOut = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Cancel
           </Button>
           <Button
             type="submit"
             className="save-checkout_button"
             variant="primary"
           >
-            Save Changes
+            Check Out
           </Button>
         </Modal.Footer>
       </Form>

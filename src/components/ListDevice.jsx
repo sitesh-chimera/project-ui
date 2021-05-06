@@ -36,6 +36,7 @@ const ListDevice = (props) => {
   }, []);
 
   const handleClose = () => setshowCheckOutModal(false);
+
   const handleCloseFeedback = () => setFeedbackDialog(false);
   const CheckOutDevice = (deviceDetails) => {
     setDeviceDetails(deviceDetails);
@@ -69,7 +70,7 @@ const ListDevice = (props) => {
             <th>Manufacturer</th>
             <th>lastCheckedOutDate</th>
             <th>lastCheckedOutBy</th>
-            <th>isCheckedOut</th>
+            <th>CheckedOut</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -99,20 +100,20 @@ const ListDevice = (props) => {
               <td>
                 <Button
                   variant="link"
-                  className={`delete-device_button-${index} ml-3`}
+                  className={`delete-device_button-${index}`}
                   onClick={() => deleteDevice(device._id)}
                 >
                   Remove
                 </Button>
                 <Button
                   variant="link"
-                  className={`checkout-device_button-${index} ml-3`}
+                  className={`checkout-device_button-${index}`}
                   onClick={() => CheckOutDevice(device)}
                 >
                   Check Out
                 </Button>
                 <Button
-                  className={`add-feedback_button-${index} ml-3`}
+                  className={`add-feedback_button-${index}`}
                   variant="link"
                   onClick={() => addFeedback(device)}
                 >

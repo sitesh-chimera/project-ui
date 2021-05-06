@@ -29,20 +29,18 @@ const FeedbackDialog = (props) => {
   return (
     <>
       <Modal show={show} onHide={handleClose} animation={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            <p>
-              previous Feedback :
-              {deviceDetails.feedback
-                ? " " + deviceDetails.feedback
-                : " No previous feedback available"}
-            </p>
-          </Modal.Title>
+        <Modal.Header>
+          <p>
+            Feedback :
+            {deviceDetails.feedback
+              ? " " + deviceDetails.feedback
+              : " No previous feedback available"}
+          </p>
         </Modal.Header>
         <Form onSubmit={saveFeedBack}>
           <Modal.Body>
             <Form.Group controlId="formBasicfeedback">
-              <Form.Label>Feedback Form</Form.Label>
+              <Form.Label>Enter your Feedback</Form.Label>
               <Form.Control
                 type="text"
                 required
@@ -53,14 +51,14 @@ const FeedbackDialog = (props) => {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              Close
+              Cancel
             </Button>
             <Button
               type="submit"
               className="save-feedback_button"
               variant="primary"
             >
-              Save Changes
+              Save
             </Button>
           </Modal.Footer>
         </Form>
