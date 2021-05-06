@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import moment from "moment";
 import DeviceService from "../service/DeviceService";
-import CheckIn from "./CheckOut";
+import CheckOut from "./CheckOut";
 import FeedbackDialog from "./FeedbackDialog";
 
 const ListDevice = (props) => {
@@ -124,7 +124,7 @@ const ListDevice = (props) => {
           ))}
         </tbody>
       </Table>
-      <CheckIn
+      <CheckOut
         showCheckOut={showCheckOut}
         deviceDetails={deviceDetails}
         handleClose={handleClose}
