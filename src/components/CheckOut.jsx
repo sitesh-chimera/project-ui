@@ -74,7 +74,7 @@ const CheckOut = (props) => {
           </Button>
           <Button
             type="submit"
-            className="save-device_button"
+            className="save-checkout_button"
             variant="primary"
           >
             Save Changes

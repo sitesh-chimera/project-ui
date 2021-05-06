@@ -105,14 +105,14 @@ const ListDevice = (props) => {
                   Remove
                 </Button>
                 <Button
-                  className="ml-3"
                   variant="link"
+                  className={`checkout-device_button-${index} ml-3`}
                   onClick={() => CheckOutDevice(device)}
                 >
                   Check Out
                 </Button>
                 <Button
-                  className="ml-3"
+                  className={`add-feedback_button-${index} ml-3`}
                   variant="link"
                   onClick={() => addFeedback(device)}
                 >
