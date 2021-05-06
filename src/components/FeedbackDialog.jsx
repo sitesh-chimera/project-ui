@@ -7,8 +7,7 @@ import FeedbackService from "../service/FeedbackService";
 const FeedbackDialog = (props) => {
   const { show, deviceDetails, handleClose } = props;
   const [feedback, setFeedback] = useState();
-  console.log("deviceDetails");
-  console.log(deviceDetails);
+
   const saveFeedBack = async (e) => {
     e.preventDefault();
     const response = await FeedbackService.addFeedBack(
@@ -16,6 +15,7 @@ const FeedbackDialog = (props) => {
       feedback
     );
     if (response) {
+      alert("Feedback saved.");
       window.location.reload();
     } else {
       alert("something went erong plase try again");

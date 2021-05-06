@@ -37,7 +37,6 @@ const CheckOut = (props) => {
         deviceDetails._id,
         lastCheckOutBy
       );
-      console.log(response);
       if (response) {
         window.location.reload();
       } else {

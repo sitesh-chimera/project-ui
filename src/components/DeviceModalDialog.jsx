@@ -23,6 +23,7 @@ const DeviceModalDialog = (props) => {
     DeviceService.createDevice(deviceData).then((res) => {
       if (res) {
         if (onDone) {
+          alert("device saved.");
           onDone();
         }
       }

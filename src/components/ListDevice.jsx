@@ -15,14 +15,16 @@ const ListDevice = (props) => {
   const [lastWeekData, setlastWeeKData] = useState([]);
 
   const deleteDevice = (deviceId) => {
-    try {
-      DeviceService.removeDevice(deviceId).then((response) => {
-        if (response) {
-          onDone();
-        }
-      });
-    } catch (error) {
-      console.log(error);
+    if (window.confirm("Are you sure want to delete this device?")) {
+      try {
+        DeviceService.removeDevice(deviceId).then((response) => {
+          if (response) {
+            onDone();
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
