@@ -12,16 +12,16 @@ const CheckOut = (props) => {
   const [lastCheckOutBy, setlastCheckOutBy] = useState();
 
   const checkCheckoutTime = (e) => {
-    const checkOutStartTime = moment(startTime, "HH:mm");
-    const checkOutEndTime = moment(endTime, "HH:mm");
-    const currentTime = moment();
-    if (
-      checkOutStartTime.diff(currentTime) > 0 ||
-      currentTime.diff(checkOutEndTime) > 0
-    ) {
-      return false;
-    } else {
+    const format = "hh:mm:ss";
+    // var time = moment() gives you current time. no format required.
+    const time = moment(moment(), format),
+      checkOutstartTime = moment(startTime, format),
+      checkOutEndTime = moment(endTime, format);
+
+    if (time.isBetween(checkOutstartTime, checkOutEndTime)) {
       return true;
+    } else {
+      return false;
     }
   };
 
