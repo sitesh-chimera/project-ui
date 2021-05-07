@@ -1,6 +1,6 @@
 describe("Should add device to the system", () => {
   it("Add Mobile", () => {
-    cy.visit("http://localhost:3000/dashboard");
+    cy.visit("http://localhost:3000");
     cy.get(".add-device_button").click();
     cy.get("input#formBasicDeviceName")
       .type("Samsung Mobile")

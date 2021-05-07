@@ -9,9 +9,6 @@ function App() {
   return (
     <div id="page-content">
       <Switch>
-        <Route exact path={HOME}>
-          <Home />
-        </Route>
         <Route path={DASHBOARD}>
           <Dashboard />
         </Route>

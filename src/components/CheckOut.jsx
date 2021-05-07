@@ -4,25 +4,25 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import DeviceService from "../service/DeviceService";
-import { endTime, startTime } from "../config/api-config";
+import { endTime, startTime } from "../config/constant";
+import moment from "moment";
 
 const CheckOut = (props) => {
   const { showCheckOut, deviceDetails, handleClose } = props;
   const [lastCheckOutBy, setlastCheckOutBy] = useState();
+
   const checkCheckoutTime = (e) => {
-    let currentDate = new Date();
-    let startDate;
-    startDate = new Date(currentDate.getTime());
-    startDate.setHours(startTime.split(":")[0]);
-    startDate.setMinutes(startTime.split(":")[1]);
-    startDate.setSeconds(startTime.split(":")[2]);
-    let endDate;
-    endDate = new Date(currentDate.getTime());
-    endDate.setHours(endTime.split(":")[0]);
-    endDate.setMinutes(endTime.split(":")[1]);
-    endDate.setSeconds(endTime.split(":")[2]);
-    let valid = startDate < currentDate && endDate > currentDate;
-    return valid;
+    const checkOutStartTime = moment(startTime, "HH:mm");
+    const checkOutEndTime = moment(endTime, "HH:mm");
+    const currentTime = moment();
+    if (
+      checkOutStartTime.diff(currentTime) > 0 ||
+      currentTime.diff(checkOutEndTime) > 0
+    ) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   const checkOutByName = (lastCheckOutBy) => {
