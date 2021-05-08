@@ -14,6 +14,7 @@ const Initialdata = {
 const DeviceModalDialog = (props) => {
   const { show, handleClose, onDone } = props;
   const [deviceData, setDeviceData] = useState(Initialdata);
+
   const onInputChange = (value, name) => {
     setDeviceData({ ...deviceData, [name]: value });
   };
@@ -21,7 +22,9 @@ const DeviceModalDialog = (props) => {
   const saveDevice = (e) => {
     e.preventDefault();
     DeviceService.createDevice(deviceData).then((res) => {
-      if (res) {
+      if (res.data.error) {
+        alert(res.data.message);
+      } else {
         if (onDone) {
           alert("device saved.");
           onDone();

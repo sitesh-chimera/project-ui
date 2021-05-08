@@ -3,27 +3,11 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
-import DeviceService from "../service/DeviceService";
-import { endTime, startTime } from "../config/constant";
-import moment from "moment";
+import CheckInOutService from "../service/CheckInOutService";
 
 const CheckOut = (props) => {
   const { showCheckOut, deviceDetails, handleClose } = props;
   const [lastCheckOutBy, setlastCheckOutBy] = useState();
-
-  const checkCheckoutTime = (e) => {
-    const format = "hh:mm:ss";
-    // var time = moment() gives you current time. no format required.
-    const time = moment(moment(), format),
-      checkOutstartTime = moment(startTime, format),
-      checkOutEndTime = moment(endTime, format);
-
-    if (time.isBetween(checkOutstartTime, checkOutEndTime)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
 
   const checkOutByName = (lastCheckOutBy) => {
     setlastCheckOutBy(lastCheckOutBy);
@@ -32,18 +16,16 @@ const CheckOut = (props) => {
   const saveCheckOut = async (e) => {
     e.preventDefault();
 
-    if (checkCheckoutTime()) {
-      const response = await DeviceService.checkOutDevice(
-        deviceDetails._id,
-        lastCheckOutBy
-      );
-      if (response) {
-        window.location.reload();
-      } else {
-        alert("checkout is done with the same name try another");
-      }
+    const response = await CheckInOutService.checkOutDevice(
+      deviceDetails._id,
+      lastCheckOutBy
+    );
+
+    if (response.data.error) {
+      alert(response.data.message);
     } else {
-      alert("check out can performed between 9:00 AM to 17:00 AM");
+      alert(response.data.message);
+      window.location.reload();
     }
   };
 

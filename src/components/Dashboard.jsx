@@ -18,11 +18,7 @@ const Dashboard = () => {
   };
 
   const handleShow = () => {
-    if (devices.length >= 10) {
-      alert("max 10 entry allowed");
-    } else {
-      setShow(true);
-    }
+    setShow(true);
   };
 
   useEffect(() => {
@@ -45,6 +41,7 @@ const Dashboard = () => {
           Add device
         </Button>
         <ListDevice data={devices} onDone={resetDevice} />
+
         <DeviceModalDialog
           show={show}
           handleClose={handleClose}

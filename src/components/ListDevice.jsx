@@ -3,9 +3,11 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import moment from "moment";
-import DeviceService from "../service/DeviceService";
 import CheckOut from "./CheckOut";
 import FeedbackDialog from "./FeedbackDialog";
+import Dropdown from "react-bootstrap/Dropdown";
+import DeviceService from "../service/DeviceService";
+import CheckInOutService from "../service/CheckInOutService";
 
 const ListDevice = (props) => {
   const { data, onDone } = props;
@@ -29,7 +31,7 @@ const ListDevice = (props) => {
   };
 
   const getWeekDate = () => {
-    var weekDate = moment().subtract(8, "days").format("YYYY/MM/DD");
+    const weekDate = moment().subtract(8, "days").format("YYYY/MM/DD");
     setlastWeeKData(weekDate);
   };
 
@@ -40,22 +42,36 @@ const ListDevice = (props) => {
   const handleClose = () => setshowCheckOutModal(false);
 
   const handleCloseFeedback = () => setFeedbackDialog(false);
+
+  // handling open modal for checkout device
   const CheckOutDevice = (deviceDetails) => {
     setDeviceDetails(deviceDetails);
     setshowCheckOutModal(true);
   };
 
+  // handling open modal for feedback
   const addFeedback = (deviceDetails) => {
     setDeviceDetails(deviceDetails);
     setFeedbackDialog(true);
   };
 
-  const checkoutMoreThanWeek = (device) => {
+  // checking date validation if more than a week
+  const validationDeviceForMoreThanWeek = (device) => {
     if (moment(device.lastCheckedOutDate).format("YYYY/MM/DD") < lastWeekData) {
       return "device-table-tr";
     } else {
       return 0;
     }
+  };
+
+  // handling checkin operation
+  const CheckInDevice = (deviceId) => {
+    CheckInOutService.checkInDevice(deviceId).then((response) => {
+      if (response) {
+        alert(response.data.message);
+        onDone();
+      }
+    });
   };
 
   return (
@@ -78,7 +94,10 @@ const ListDevice = (props) => {
         </thead>
         <tbody className="device-table-header">
           {data.map((device, index) => (
-            <tr key={device._id} className={checkoutMoreThanWeek(device)}>
+            <tr
+              key={device._id}
+              className={validationDeviceForMoreThanWeek(device)}
+            >
               <td>{device.device}</td>
               <td>{device.os}</td>
               <td>{device.manufacturer}</td>
@@ -93,12 +112,13 @@ const ListDevice = (props) => {
                   : "Not Availble"}
               </td>
               <td>
-                {device.isCheckedOut ? (
+                {device.isCheckedOut == 2 ? (
                   <Badge variant="success">Yes</Badge>
                 ) : (
                   <Badge variant="warning">No</Badge>
                 )}
               </td>
+
               <td>
                 <Button
                   variant="link"
@@ -107,13 +127,29 @@ const ListDevice = (props) => {
                 >
                   Remove
                 </Button>
-                <Button
-                  variant="link"
-                  className={`checkout-device_button-${index}`}
-                  onClick={() => CheckOutDevice(device)}
-                >
-                  Check Out
-                </Button>
+
+                {/* 0 normal 1 check In 
+                2 check out */}
+                <Dropdown>
+                  <Dropdown.Toggle />
+                  <Dropdown.Menu>
+                    {device.isCheckedOut == 1 && (
+                      <Dropdown.Item key="check-out" href="#">
+                        <span onClick={() => CheckOutDevice(device)}>
+                          Check Out
+                        </span>
+                      </Dropdown.Item>
+                    )}
+
+                    {(device.isCheckedOut == 2 || device.isCheckedOut == 0) && (
+                      <Dropdown.Item key="check-in" href="#">
+                        <span onClick={() => CheckInDevice(device._id)}>
+                          Check In{" "}
+                        </span>
+                      </Dropdown.Item>
+                    )}
+                  </Dropdown.Menu>
+                </Dropdown>
                 <Button
                   className={`add-feedback_button-${index}`}
                   variant="link"

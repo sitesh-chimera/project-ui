@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Route, Switch } from "react-router-dom";
 import { DASHBOARD, HOME } from "./config/ROUTES_NAME";
 import Dashboard from "./components/Dashboard";
-import Home from "./components/Home";
 
 function App() {
   return (
