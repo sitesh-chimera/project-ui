@@ -26,6 +26,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ### Technology used
 
 - [E2E cypress](https://www.cypress.io/)
+- [Cypress API](https://docs.cypress.io/api/commands/contains#Syntax)
 - [React](https://reactjs.org/)
 - [React Hooks (or functional programming in React)](https://reactjs.org/docs/hooks-intro.html)
 - [React Bootstrap](https://react-bootstrap.github.io/)

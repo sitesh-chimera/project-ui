@@ -28,41 +28,43 @@ const FeedbackDialog = (props) => {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} animation={false}>
-        <Modal.Header>
-          <p>
-            Feedback :
-            {deviceDetails.feedback
-              ? " " + deviceDetails.feedback
-              : " No previous feedback available"}
-          </p>
-        </Modal.Header>
-        <Form onSubmit={saveFeedBack}>
-          <Modal.Body>
-            <Form.Group controlId="formBasicfeedback">
-              <Form.Label>Enter your Feedback</Form.Label>
-              <Form.Control
-                type="text"
-                required
-                onChange={(e) => onFeedBackChange(e.target.value)}
-                placeholder="Enter feedback"
-              />
-            </Form.Group>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              className="save-feedback_button"
-              variant="primary"
-            >
-              Save
-            </Button>
-          </Modal.Footer>
-        </Form>
-      </Modal>
+      <div>
+        <Modal show={show} onHide={handleClose} animation={false}>
+          <Modal.Header>
+            <p>
+              Feedback :
+              {deviceDetails.feedback
+                ? " " + deviceDetails.feedback
+                : " No previous feedback available"}
+            </p>
+          </Modal.Header>
+          <Form onSubmit={saveFeedBack}>
+            <Modal.Body>
+              <Form.Group controlId="formBasicfeedback">
+                <Form.Label>Enter your Feedback</Form.Label>
+                <Form.Control
+                  type="text"
+                  required
+                  onChange={(e) => onFeedBackChange(e.target.value)}
+                  placeholder="Enter feedback"
+                />
+              </Form.Group>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                className="save-feedback_button"
+                variant="primary"
+              >
+                Save
+              </Button>
+            </Modal.Footer>
+          </Form>
+        </Modal>
+      </div>
     </>
   );
 };

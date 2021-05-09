@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import Badge from "react-bootstrap/Badge";
 import moment from "moment";
 import CheckOut from "./CheckOut";
@@ -130,7 +131,39 @@ const ListDevice = (props) => {
 
                 {/* 0 normal 1 check In 
                 2 check out */}
-                <Dropdown>
+
+                {device.isCheckedOut == 1 && (
+                  <Form.Group controlId="checkout">
+                    <Form.Control
+                      required
+                      as="select"
+                      onChange={() => CheckOutDevice(device)}
+                    >
+                      <option value="">Select to proceed</option>
+                      <option key={1} value="check-out">
+                        check out
+                      </option>
+                    </Form.Control>
+                  </Form.Group>
+                )}
+
+                {(device.isCheckedOut == 2 || device.isCheckedOut == 0) && (
+                  <Form.Group controlId="checkin">
+                    <Form.Control
+                      name="check-in"
+                      required
+                      as="select"
+                      onChange={() => CheckInDevice(device._id)}
+                    >
+                      <option value="">Select to proceed</option>
+                      <option key={1} value="check-in">
+                        check In
+                      </option>
+                    </Form.Control>
+                  </Form.Group>
+                )}
+
+                {/* <Dropdown id="checkInOut">
                   <Dropdown.Toggle />
                   <Dropdown.Menu>
                     {device.isCheckedOut == 1 && (
@@ -149,7 +182,7 @@ const ListDevice = (props) => {
                       </Dropdown.Item>
                     )}
                   </Dropdown.Menu>
-                </Dropdown>
+                </Dropdown> */}
                 <Button
                   className={`add-feedback_button-${index}`}
                   variant="link"
