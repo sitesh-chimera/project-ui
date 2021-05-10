@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import FeedbackService from "../service/FeedbackService";
+import DeviceContext from "../context/DeviceContext";
 
 const FeedbackDialog = (props) => {
   const { show, deviceDetails, handleClose } = props;
   const [feedback, setFeedback] = useState();
+  const { devices, loadDevice } = useContext(DeviceContext);
 
   const saveFeedBack = async (e) => {
     e.preventDefault();
@@ -16,7 +18,8 @@ const FeedbackDialog = (props) => {
     );
     if (response) {
       alert("Feedback saved.");
-      window.location.reload();
+      loadDevice();
+      handleClose();
     } else {
       alert("something went erong plase try again");
     }

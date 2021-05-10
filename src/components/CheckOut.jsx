@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import CheckInOutService from "../service/CheckInOutService";
+import DeviceContext from "../context/DeviceContext";
 
 const CheckOut = (props) => {
   const { showCheckOut, deviceDetails, handleClose } = props;
+  const { devices, loadDevice } = useContext(DeviceContext);
+
   const [lastCheckOutBy, setlastCheckOutBy] = useState();
 
   const checkOutByName = (lastCheckOutBy) => {
@@ -25,7 +28,8 @@ const CheckOut = (props) => {
       alert(response.data.message);
     } else {
       alert(response.data.message);
-      window.location.reload();
+      loadDevice();
+      handleClose();
     }
   };
 

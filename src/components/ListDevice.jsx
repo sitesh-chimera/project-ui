@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -6,9 +6,9 @@ import Badge from "react-bootstrap/Badge";
 import moment from "moment";
 import CheckOut from "./CheckOut";
 import FeedbackDialog from "./FeedbackDialog";
-import Dropdown from "react-bootstrap/Dropdown";
 import DeviceService from "../service/DeviceService";
 import CheckInOutService from "../service/CheckInOutService";
+import DeviceContext from "../context/DeviceContext";
 
 const ListDevice = (props) => {
   const { data, onDone } = props;
@@ -16,13 +16,14 @@ const ListDevice = (props) => {
   const [feedbackDialog, setFeedbackDialog] = useState(false);
   const [deviceDetails, setDeviceDetails] = useState({});
   const [lastWeekData, setlastWeeKData] = useState([]);
+  const { devices, loadDevice } = useContext(DeviceContext);
 
   const deleteDevice = (deviceId) => {
     if (window.confirm("Are you sure want to delete this device?")) {
       try {
         DeviceService.removeDevice(deviceId).then((response) => {
           if (response) {
-            onDone();
+            loadDevice();
           }
         });
       } catch (error) {
@@ -71,6 +72,7 @@ const ListDevice = (props) => {
       if (response) {
         alert(response.data.message);
         onDone();
+        loadDevice();
       }
     });
   };
@@ -94,7 +96,7 @@ const ListDevice = (props) => {
           </tr>
         </thead>
         <tbody className="device-table-header">
-          {data.map((device, index) => (
+          {devices.map((device, index) => (
             <tr
               key={device._id}
               className={validationDeviceForMoreThanWeek(device)}
@@ -199,7 +201,7 @@ const ListDevice = (props) => {
         showCheckOut={showCheckOut}
         deviceDetails={deviceDetails}
         handleClose={handleClose}
-        allDevices={data}
+        allDevices={devices}
       />
       <FeedbackDialog
         show={feedbackDialog}

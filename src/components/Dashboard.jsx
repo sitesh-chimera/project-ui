@@ -1,32 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 
-import DeviceService from "../service/DeviceService";
 import DeviceModalDialog from "./DeviceModalDialog";
 import ListDevice from "./ListDevice";
 
 const Dashboard = () => {
-  const [devices, setDevice] = useState([]);
   const handleClose = () => setShow(false);
   const [show, setShow] = useState(false);
-
-  const loadDevice = async () => {
-    const response = await DeviceService.getAllDevice();
-    if (response) {
-      setDevice(response);
-    }
-  };
 
   const handleShow = () => {
     setShow(true);
   };
 
-  useEffect(() => {
-    loadDevice();
-  }, []);
-
   const resetDevice = () => {
-    loadDevice();
     setShow(false);
   };
 
@@ -40,7 +26,7 @@ const Dashboard = () => {
         >
           Add device
         </Button>
-        <ListDevice data={devices} onDone={resetDevice} />
+        <ListDevice onDone={resetDevice} />
 
         <DeviceModalDialog
           show={show}
