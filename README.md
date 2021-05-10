@@ -16,7 +16,6 @@ In the project directory, you can run:
 #### Run in Local
 
 - start the server `npm start`
-- run e2e test `npm run e2e`
 
 ### `npm start`
 
