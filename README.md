@@ -1,25 +1,18 @@
 ## Portal-UI
 
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
 ### Local Setup
 
 - Install all dependencies `npm install`
-- Generate example E2E tests `npx cypress open`
+
 
 #### Run in Local
 
 - start the server `npm start`
+- to run tests `npx cypress open`
 
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the app in.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### Technology used
@@ -33,7 +26,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ### Styling
 
 This project uses SCSS for styling. Customise the style of the app in `App.css`.
-With SCSS, you can use variables and other convenient functions.
 
 Reference:
 
