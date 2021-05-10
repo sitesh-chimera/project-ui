@@ -97,6 +97,7 @@ const ListDevice = (props) => {
         handleClose={handleClose}
         allDevices={devices}
       />
+
       <FeedbackDialog
         show={feedbackDialog}
         deviceToUpdate={deviceToUpdate}
