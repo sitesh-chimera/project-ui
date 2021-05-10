@@ -7,8 +7,8 @@ import CheckInOutService from "../service/CheckInOutService";
 import DeviceContext from "../context/DeviceContext";
 
 const CheckOut = (props) => {
-  const { showCheckOut, deviceDetails, handleClose } = props;
-  const { devices, loadDevice } = useContext(DeviceContext);
+  const { showCheckOut, deviceToUpdate, handleClose } = props;
+  const { loadDevice } = useContext(DeviceContext);
 
   const [lastCheckOutBy, setlastCheckOutBy] = useState();
 
@@ -20,7 +20,7 @@ const CheckOut = (props) => {
     e.preventDefault();
 
     const response = await CheckInOutService.checkOutDevice(
-      deviceDetails._id,
+      deviceToUpdate._id,
       lastCheckOutBy
     );
 

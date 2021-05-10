@@ -15,7 +15,7 @@ const ListDevice = (props) => {
   const { devices, loadDevice } = useContext(DeviceContext);
   const [showCheckOut, setshowCheckOutModal] = useState(false);
   const [feedbackDialog, setFeedbackDialog] = useState(false);
-  const [deviceDetails, setDeviceDetails] = useState({});
+  const [deviceToUpdate, setDeviceToUpdate] = useState({});
   const [lastWeekData, setlastWeeKData] = useState([]);
 
   const handleClose = () => setshowCheckOutModal(false);
@@ -46,14 +46,14 @@ const ListDevice = (props) => {
   }, []);
 
   // handling open modal for checkout device
-  const CheckOutDevice = (deviceDetails) => {
-    setDeviceDetails(deviceDetails);
+  const CheckOutDevice = (device) => {
+    setDeviceToUpdate(device);
     setshowCheckOutModal(true);
   };
 
   // handling open modal for feedback
-  const addFeedback = (deviceDetails) => {
-    setDeviceDetails(deviceDetails);
+  const addFeedback = (device) => {
+    setDeviceToUpdate(device);
     setFeedbackDialog(true);
   };
 
@@ -130,10 +130,6 @@ const ListDevice = (props) => {
                 >
                   Remove
                 </Button>
-
-                {/* 0 normal 1 check In 
-                2 check out */}
-
                 {device.isCheckedOut == 1 && (
                   <Form.Group controlId="checkout">
                     <Form.Control
@@ -179,13 +175,13 @@ const ListDevice = (props) => {
       </Table>
       <CheckOut
         showCheckOut={showCheckOut}
-        deviceDetails={deviceDetails}
+        deviceToUpdate={deviceToUpdate}
         handleClose={handleClose}
         allDevices={devices}
       />
       <FeedbackDialog
         show={feedbackDialog}
-        deviceDetails={deviceDetails}
+        deviceToUpdate={deviceToUpdate}
         handleClose={handleCloseFeedback}
       />
     </>

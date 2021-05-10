@@ -6,14 +6,14 @@ import FeedbackService from "../service/FeedbackService";
 import DeviceContext from "../context/DeviceContext";
 
 const FeedbackDialog = (props) => {
-  const { show, deviceDetails, handleClose } = props;
+  const { show, deviceToUpdate, handleClose } = props;
   const [feedback, setFeedback] = useState();
-  const { devices, loadDevice } = useContext(DeviceContext);
+  const { loadDevice } = useContext(DeviceContext);
 
   const saveFeedBack = async (e) => {
     e.preventDefault();
     const response = await FeedbackService.addFeedBack(
-      deviceDetails._id,
+      deviceToUpdate._id,
       feedback
     );
     if (response) {
@@ -36,8 +36,8 @@ const FeedbackDialog = (props) => {
           <Modal.Header>
             <p>
               Feedback :
-              {deviceDetails.feedback
-                ? " " + deviceDetails.feedback
+              {deviceToUpdate.feedback
+                ? " " + deviceToUpdate.feedback
                 : " No previous feedback available"}
             </p>
           </Modal.Header>
