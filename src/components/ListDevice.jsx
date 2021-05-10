@@ -11,12 +11,16 @@ import CheckInOutService from "../service/CheckInOutService";
 import DeviceContext from "../context/DeviceContext";
 
 const ListDevice = (props) => {
-  const { data, onDone } = props;
+  const { onDone } = props;
+  const { devices, loadDevice } = useContext(DeviceContext);
   const [showCheckOut, setshowCheckOutModal] = useState(false);
   const [feedbackDialog, setFeedbackDialog] = useState(false);
   const [deviceDetails, setDeviceDetails] = useState({});
   const [lastWeekData, setlastWeeKData] = useState([]);
-  const { devices, loadDevice } = useContext(DeviceContext);
+
+  const handleClose = () => setshowCheckOutModal(false);
+
+  const handleCloseFeedback = () => setFeedbackDialog(false);
 
   const deleteDevice = (deviceId) => {
     if (window.confirm("Are you sure want to delete this device?")) {
@@ -40,10 +44,6 @@ const ListDevice = (props) => {
   useEffect(() => {
     getWeekDate();
   }, []);
-
-  const handleClose = () => setshowCheckOutModal(false);
-
-  const handleCloseFeedback = () => setFeedbackDialog(false);
 
   // handling open modal for checkout device
   const CheckOutDevice = (deviceDetails) => {
@@ -165,26 +165,6 @@ const ListDevice = (props) => {
                   </Form.Group>
                 )}
 
-                {/* <Dropdown id="checkInOut">
-                  <Dropdown.Toggle />
-                  <Dropdown.Menu>
-                    {device.isCheckedOut == 1 && (
-                      <Dropdown.Item key="check-out" href="#">
-                        <span onClick={() => CheckOutDevice(device)}>
-                          Check Out
-                        </span>
-                      </Dropdown.Item>
-                    )}
-
-                    {(device.isCheckedOut == 2 || device.isCheckedOut == 0) && (
-                      <Dropdown.Item key="check-in" href="#">
-                        <span onClick={() => CheckInDevice(device._id)}>
-                          Check In{" "}
-                        </span>
-                      </Dropdown.Item>
-                    )}
-                  </Dropdown.Menu>
-                </Dropdown> */}
                 <Button
                   className={`add-feedback_button-${index}`}
                   variant="link"
